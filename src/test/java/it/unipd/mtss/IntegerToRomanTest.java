@@ -10,43 +10,66 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import java.util.Collection;
-import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import org.junit.experimental.runners.Enclosed;
 
 @RunWith(Enclosed.class)
-public class IntegerToRomanTest
-{
+public class IntegerToRomanTest {
+
     @RunWith(Parameterized.class)
-    public static class IntegerToRomanParamTests
-    {
+    public static class IntegerToRomanParamTests {
         private int numero;
         private String expected;
 
-        public IntegerToRomanParamTests(int numero, String expected)
-        {
-            super();
+        public IntegerToRomanParamTests(int numero, String expected) {
             this.numero = numero;
             this.expected = expected;
         }
 
-        @Parameterized.Parameters
-        public static Collection input()
-        {
-            return Arrays.asList(new Object[][] {{1,"I"},{2,"II"},{3,"III"},{4,"IV"},{5,"V"},{6,"VI"},{7,"VII"},{8,"VIII"},{9,"IX"},{10,"X"},{11, "XI"},{12, "XII"},{13, "XIII"},{14, "XIV"},{15, "XV"},{16, "XVI"},{17, "XVII"},{18, "XVIII"},{19, "XIX"},{20, "XX"},});
+        private static String convertToRoman(int num) {
+            if (num < 1 || num > 50) return "";
+            
+            int[] values = {50, 40, 10, 9, 5, 4, 1};
+            String[] symbols = {"L", "XL", "X", "IX", "V", "IV", "I"};
+            
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < values.length; i++) {
+                while (num >= values[i]) {
+                    sb.append(symbols[i]);
+                    num -= values[i];
+                }
+            }
+            return sb.toString();
+        }
+
+        @Parameterized.Parameters(name = "{0} -> {1}")
+        public static Collection<Object[]> data() {
+            return IntStream.rangeClosed(1, 50)
+                .mapToObj(i -> new Object[]{i, convertToRoman(i)})
+                .collect(Collectors.toList());
         }
 
         @Test
-        public void testIntegerToRomanTest()
-        {
-            // Arrange
-            String actual = "";
-
-            // Act
-            actual = IntegerToRoman.convert(numero);
-
-            // Assert
-            assertEquals(expected, actual);
+        public void testIntegerToRomanConversion() {
+            assertEquals(expected, IntegerToRoman.convert(numero));
         }
     }
 
+    public static class IntegerToRomanEdgeTests {
+        @Test(expected = IllegalArgumentException.class)
+        public void testZeroThrowsException() {
+            IntegerToRoman.convert(0);
+        }
+
+        @Test(expected = IllegalArgumentException.class)
+        public void testNegativeThrowsException() {
+            IntegerToRoman.convert(-5);
+        }
+
+        @Test(expected = IllegalArgumentException.class)
+        public void testAbove50ThrowsException() {
+            IntegerToRoman.convert(150);
+        }
+    }
 }

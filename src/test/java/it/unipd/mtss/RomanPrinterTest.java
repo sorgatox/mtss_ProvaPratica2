@@ -1,11 +1,17 @@
+////////////////////////////////////////////////////////////////////
+// [Enrico] [Sorgato] [2071112]
+// [Alessandro] [Bertolazzi] [1227274]
+////////////////////////////////////////////////////////////////////
+
 package it.unipd.mtss;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,8 +28,8 @@ public class RomanPrinterTest {
         this.expected = expected;
     }
 
+    // Mappa delle rappresentazioni ASCII
     private static final Map<Character, String[]> romanCharArt = new HashMap<>();
-
     static {
         romanCharArt.put('I', new String[]{
             "  _____ ",
@@ -51,43 +57,49 @@ public class RomanPrinterTest {
             " / . \\ ",
             "/_/ \\_\\"
         });
+
+        romanCharArt.put('L', new String[]{
+            " _      ",
+            "| |     ",
+            "| |     ",
+            "| |     ",
+            "| |____ ",
+            "|______|"
+        });
     }
 
     private static String generateExpectedAscii(String roman) {
-        StringBuilder expected = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         for (int line = 0; line < 6; line++) {
             for (char c : roman.toCharArray()) {
-                expected.append(romanCharArt.get(c)[line]).append(" ");
+                sb.append(romanCharArt.get(c)[line]).append(" ");
             }
-            expected.append("\n");
+            sb.append("\n");
         }
-        return expected.toString();
+        return sb.toString();
     }
 
-    @Parameterized.Parameters
+    private static String intToRoman(int num) {
+        if (num < 1 || num > 50) return "";
+        
+        int[] values = {50, 40, 10, 9, 5, 4, 1};
+        String[] symbols = {"L", "XL", "X", "IX", "V", "IV", "I"};
+        
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < values.length; i++) {
+            while (num >= values[i]) {
+                sb.append(symbols[i]);
+                num -= values[i];
+            }
+        }
+        return sb.toString();
+    }
+
+    @Parameterized.Parameters(name = "Test {0} -> {1}")
     public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][]{
-            {1, generateExpectedAscii("I")},
-            {2, generateExpectedAscii("II")},
-            {3, generateExpectedAscii("III")},
-            {4, generateExpectedAscii("IV")},
-            {5, generateExpectedAscii("V")},
-            {6, generateExpectedAscii("VI")},
-            {7, generateExpectedAscii("VII")},
-            {8, generateExpectedAscii("VIII")},
-            {9, generateExpectedAscii("IX")},
-            {10, generateExpectedAscii("X")},
-            {11, generateExpectedAscii("XI")},
-            {12, generateExpectedAscii("XII")},
-            {13, generateExpectedAscii("XIII")},
-            {14, generateExpectedAscii("XIV")},
-            {15, generateExpectedAscii("XV")},
-            {16, generateExpectedAscii("XVI")},
-            {17, generateExpectedAscii("XVII")},
-            {18, generateExpectedAscii("XVIII")},
-            {19, generateExpectedAscii("XIX")},
-            {20, generateExpectedAscii("XX")}
-        });
+        return IntStream.rangeClosed(1, 50)
+            .mapToObj(i -> new Object[]{i, generateExpectedAscii(intToRoman(i))})
+            .collect(Collectors.toList());
     }
 
     @Test

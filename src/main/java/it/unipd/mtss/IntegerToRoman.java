@@ -7,11 +7,22 @@ package it.unipd.mtss;
 
 public class IntegerToRoman {
     public static String convert(int number) {
-        if (number < 1 || number > 20) {
-            throw new IllegalArgumentException("Il numero deve essere tra 1 e 20");
+        if (number < 1 || number > 50) {
+            throw new IllegalArgumentException("Il numero deve essere tra 1 e 50");
         }
 
-        String[] numeriRomani = {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX"};
-        return numeriRomani[number - 1];
+        int[] values = {50, 40, 10, 9, 5, 4, 1};
+        String[] symbols = {"L", "XL", "X", "IX", "V", "IV", "I"};
+
+        StringBuilder roman = new StringBuilder();
+
+        for (int i = 0; i < values.length; i++) {
+            while (number >= values[i]) {
+                roman.append(symbols[i]);
+                number -= values[i];
+            }
+        }
+
+        return roman.toString();
     }
 }
