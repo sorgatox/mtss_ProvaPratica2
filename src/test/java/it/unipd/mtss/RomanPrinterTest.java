@@ -84,6 +84,15 @@ public class RomanPrinterTest {
             "| |__| |",
             "|_____/ "
         });
+
+        romanCharArt.put('M', new String[]{
+            " __  __ ",
+            "|  \\/  |",
+            "| \\  / |",
+            "| |\\/| |",
+            "| |  | |",
+            "|_|  |_|"
+        });
     }
 
     private static String generateExpectedAscii(String roman) {
@@ -98,10 +107,10 @@ public class RomanPrinterTest {
     }
 
     private static String intToRoman(int num) {
-        if (num < 1 || num > 500) return "";
+        if (num < 1 || num > 1000) return "";
         
-        int[] values = {500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
-        String[] symbols = {"D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] symbols = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
         
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < values.length; i++) {
@@ -115,7 +124,7 @@ public class RomanPrinterTest {
 
     @Parameterized.Parameters(name = "Test {0} -> {1}")
     public static Collection<Object[]> data() {
-        return IntStream.rangeClosed(1, 500)
+        return IntStream.rangeClosed(1, 1000)
             .mapToObj(i -> new Object[]{i, generateExpectedAscii(intToRoman(i))})
             .collect(Collectors.toList());
     }
