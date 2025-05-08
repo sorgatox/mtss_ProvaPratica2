@@ -32,7 +32,7 @@ public class IntegerToRomanTest
         @Parameterized.Parameters
         public static Collection input()
         {
-            return Arrays.asList(new Object[][] {{1,"I"},{2,"II"},{3,"III"}});
+            return Arrays.asList(new Object[][] {{1,"I"},{2,"II"},{3,"III"},{4,"IV"},{5,"V"},{6,"VI"}});
         }
 
         @Test

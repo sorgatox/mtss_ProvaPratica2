@@ -13,7 +13,27 @@ public class RomanPrinter {
     }
  
     private static String printAsciiArt(String roman) {
-        String[] ascii = {
+        StringBuilder output = new StringBuilder();
+
+        for (int line = 0; line < 6; line++) {
+            for (char c : roman.toCharArray()) {
+                switch (c) {
+                    case 'I':
+                        output.append(getILine(line)).append(" ");
+                        break;
+                    case 'V':
+                        output.append(getVLine(line)).append(" ");
+                        break;
+                }
+            }
+            output.append("\n");
+        }
+ 
+        return output.toString();
+    }
+    
+    private static String getILine(int line) {
+        String[] iArt = {
             "  _____ ",
             " |_   _|",
             "   | |  ",
@@ -21,16 +41,19 @@ public class RomanPrinter {
             "  _| |_ ",
             " |_____|"
         };
- 
-        StringBuilder output = new StringBuilder();
-        for (String riga : ascii) {
-            for (int i = 0; i < roman.length(); i++) {
-                output.append(riga).append(" ");
-            }
-            output.append("\n");
-        }
- 
-        return output.toString();
+        return iArt[line];
+    }
+
+    private static String getVLine(int line) {
+        String[] vArt = {
+            "__      __",
+            "\\ \\    / /",
+            " \\ \\  / / ",
+            "  \\ \\/ /  ",
+            "   \\  /   ",
+            "    \\/    "
+        };
+        return vArt[line];
     }
 }
   
