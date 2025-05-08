@@ -71,5 +71,15 @@ public class IntegerToRomanTest {
         public void testAbove1000ThrowsException() {
             IntegerToRoman.convert(1001);
         }
+
+        @Test(expected = IllegalArgumentException.class)
+        public void testGreatAbove1000ThrowsException() {
+            IntegerToRoman.convert(99999);
+        }
+
+        @Test(expected = IllegalArgumentException.class)
+        public void testGreatNegativeThrowsException() {
+            IntegerToRoman.convert(-99999);
+        }
     }
 }
