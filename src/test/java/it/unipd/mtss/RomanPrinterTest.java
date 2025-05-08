@@ -76,7 +76,17 @@ public class RomanPrinterTest {
             {7, generateExpectedAscii("VII")},
             {8, generateExpectedAscii("VIII")},
             {9, generateExpectedAscii("IX")},
-            {10, generateExpectedAscii("X")}
+            {10, generateExpectedAscii("X")},
+            {11, generateExpectedAscii("XI")},
+            {12, generateExpectedAscii("XII")},
+            {13, generateExpectedAscii("XIII")},
+            {14, generateExpectedAscii("XIV")},
+            {15, generateExpectedAscii("XV")},
+            {16, generateExpectedAscii("XVI")},
+            {17, generateExpectedAscii("XVII")},
+            {18, generateExpectedAscii("XVIII")},
+            {19, generateExpectedAscii("XIX")},
+            {20, generateExpectedAscii("XX")}
         });
     }
 
