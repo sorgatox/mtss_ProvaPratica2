@@ -1,3 +1,8 @@
+////////////////////////////////////////////////////////////////////
+// [Enrico] [Sorgato] [2071112]
+// [Alessandro] [Bertolazzi] [1227274]
+////////////////////////////////////////////////////////////////////
+
 package it.unipd.mtss;
 
 public class RomanPrinter {
@@ -24,6 +29,9 @@ public class RomanPrinter {
                         break;
                     case 'L':
                         output.append(getLLine(line)).append(" ");
+                        break;
+                    case 'C':
+                        output.append(getCLine(line)).append(" ");
                         break;
                 }
             }
@@ -79,5 +87,17 @@ public class RomanPrinter {
             "|______|"
         };
         return lArt[line];
+    }
+
+    private static String getCLine(int line) {
+        String[] cArt = {
+            "  _____ ",
+            " / ____|",
+            "| |     ",
+            "| |     ",
+            "| |____ ",
+            " \\_____|"
+        };
+        return cArt[line];
     }
 }

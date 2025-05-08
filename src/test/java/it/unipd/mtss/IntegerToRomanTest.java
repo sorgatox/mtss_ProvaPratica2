@@ -28,10 +28,10 @@ public class IntegerToRomanTest {
         }
 
         private static String convertToRoman(int num) {
-            if (num < 1 || num > 50) return "";
+            if (num < 1 || num > 100) return "";
             
-            int[] values = {50, 40, 10, 9, 5, 4, 1};
-            String[] symbols = {"L", "XL", "X", "IX", "V", "IV", "I"};
+            int[] values = {100, 90, 50, 40, 10, 9, 5, 4, 1};
+            String[] symbols = {"C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
             
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < values.length; i++) {
@@ -45,7 +45,7 @@ public class IntegerToRomanTest {
 
         @Parameterized.Parameters(name = "{0} -> {1}")
         public static Collection<Object[]> data() {
-            return IntStream.rangeClosed(1, 50)
+            return IntStream.rangeClosed(1, 100)
                 .mapToObj(i -> new Object[]{i, convertToRoman(i)})
                 .collect(Collectors.toList());
         }
@@ -68,7 +68,7 @@ public class IntegerToRomanTest {
         }
 
         @Test(expected = IllegalArgumentException.class)
-        public void testAbove50ThrowsException() {
+        public void testAbove100ThrowsException() {
             IntegerToRoman.convert(150);
         }
     }

@@ -7,12 +7,12 @@ package it.unipd.mtss;
 
 public class IntegerToRoman {
     public static String convert(int number) {
-        if (number < 1 || number > 50) {
+        if (number < 1 || number > 100) {
             throw new IllegalArgumentException("Il numero deve essere tra 1 e 50");
         }
 
-        int[] values = {50, 40, 10, 9, 5, 4, 1};
-        String[] symbols = {"L", "XL", "X", "IX", "V", "IV", "I"};
+        int[] values = {100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] symbols = {"C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
 
         StringBuilder roman = new StringBuilder();
 
