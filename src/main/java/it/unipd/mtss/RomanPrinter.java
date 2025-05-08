@@ -33,6 +33,9 @@ public class RomanPrinter {
                     case 'C':
                         output.append(getCLine(line)).append(" ");
                         break;
+                    case 'D':
+                        output.append(getDLine(line)).append(" ");
+                        break;            
                 }
             }
             output.append("\n");
@@ -99,5 +102,17 @@ public class RomanPrinter {
             " \\_____|"
         };
         return cArt[line];
+    }
+
+    private static String getDLine(int line){
+        String[] dArt = {
+            " _____  ",
+            "|  __ \\ ",
+            "| |  | |",
+            "| |  | |",
+            "| |__| |",
+            "|_____/ "
+        };
+        return dArt[line];
     }
 }
