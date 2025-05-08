@@ -4,14 +4,14 @@
 ////////////////////////////////////////////////////////////////////
 
 package it.unipd.mtss;
- 
+
 public class RomanPrinter {
- 
+
     public static String print(int number) {
         String roman = IntegerToRoman.convert(number);
         return printAsciiArt(roman);
     }
- 
+
     private static String printAsciiArt(String roman) {
         StringBuilder output = new StringBuilder();
 
@@ -24,14 +24,17 @@ public class RomanPrinter {
                     case 'V':
                         output.append(getVLine(line)).append(" ");
                         break;
+                    case 'X':
+                        output.append(getXLine(line)).append(" ");
+                        break;
                 }
             }
             output.append("\n");
         }
- 
+
         return output.toString();
     }
-    
+
     private static String getILine(int line) {
         String[] iArt = {
             "  _____ ",
@@ -55,5 +58,16 @@ public class RomanPrinter {
         };
         return vArt[line];
     }
+
+    private static String getXLine(int line) {
+        String[] xArt = {
+            "__   __",
+            "\\ \\ / /",
+            " \\ V / ",
+            "  > <  ",
+            " / . \\ ",
+            "/_/ \\_\\"
+        };
+        return xArt[line];
+    }
 }
-  
